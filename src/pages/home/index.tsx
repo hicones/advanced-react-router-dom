@@ -77,7 +77,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="w-full flex flex-col gap-4 border-t-4 bg-muted p-4 py-10 items-center">
+      <section className="w-full flex flex-col gap-4 border-t-4 bg-muted p-4 py-10 items-center dark:border-foreground">
         <div className="max-w-5xl w-full flex flex-col gap-4">
           <article className="text-lg text-foreground border-b-2 py-4 font-medium text-justify">
             This project demonstrates the advanced use of the react-router-dom
@@ -97,7 +97,7 @@ export function HomePage() {
               </li>
             ))}
           </ol>
-          <article className="text-lg text-foreground border-y-2 py-4 font-medium text-justify">
+          <article className="text-lg text-foreground border-y-2 py-4 font-medium text-justify dark:border-muted-foreground">
             In this project, we sought to minimize the constant use of{" "}
             <strong> useState </strong>
             and <strong> useEffect</strong> to manage state and side effects.

@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorPage } from "./error";
 import { HomePage } from "./home";
 
-import { AppLayout } from "@/layouts";
+import { AppLayout, themeLoader } from "@/layouts";
 import { CharacterPage } from "./characters/character";
 import { CharactersPage } from "./characters";
 import { EpisodesPage } from "./episodes";
@@ -15,6 +15,7 @@ const router = createBrowserRouter(
   [
     {
       element: <AppLayout />,
+      loader: themeLoader,
       errorElement:
         process.env.NODE_ENV === "development" ? undefined : <ErrorPage />,
       path: "/",
