@@ -1,23 +1,25 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
-
-const APP_PORT = process.env.NODE_ENV === "development" ? 5173 : 80;
+import viteTsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [react()],
-
-  preview: {
-    host: true,
-    port: APP_PORT,
+  base: "/",
+  plugins: [react(), viteTsconfigPaths()],
+  server: {
+    open: true,
+    port: 3000,
   },
-
+  preview: {
+    port: 80,
+  },
+  build: {
+    outDir: "dist",
+    assetsDir: "datora360-assets",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  },
-  server: {
-    port: APP_PORT,
   },
 });
