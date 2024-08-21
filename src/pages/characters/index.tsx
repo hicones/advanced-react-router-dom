@@ -28,7 +28,7 @@ export function CharactersPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="flex items-center justify-center w-full">
+    <main className="flex items-center justify-center w-full flex-1">
       <section className="flex flex-col gap-8 p-4 pt-10 w-full">
         {isLoading ? (
           <LoadingCharactersList />
@@ -55,12 +55,19 @@ export function CharactersPage() {
             ))}
           </ul>
         )}
+        {data && data?.results?.length > 0 && (
+          <Paginator
+            totalPages={data?.info.pages || 1}
+            onPageChange={onPageChange}
+            page={page}
+          />
+        )}
 
-        <Paginator
-          totalPages={data?.info.pages || 1}
-          onPageChange={onPageChange}
-          page={page}
-        />
+        {!isLoading && data?.results?.length === 0 && (
+          <p className="text-center text-lg font-semibold text-foreground">
+            No characters found
+          </p>
+        )}
       </section>
     </main>
   );

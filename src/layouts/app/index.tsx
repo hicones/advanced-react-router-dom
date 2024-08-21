@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Header } from "@/components/app";
 import { useEffect, useState } from "react";
+import { Footer } from "@/components/app/footer";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ export function AppLayout() {
           toggleTheme={toggleTheme}
         />
         <Outlet context={{ isDarkMode, toggleTheme }} />
+        <Footer />
       </QueryClientProvider>
     </div>
   );

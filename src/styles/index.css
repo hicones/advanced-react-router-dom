@@ -91,6 +91,10 @@
   article {
     font-family: "Sora", sans-serif;
   }
+
+  .font-sora {
+    font-family: "Sora", sans-serif;
+  }
 }
 
 @keyframes bounce-loading {

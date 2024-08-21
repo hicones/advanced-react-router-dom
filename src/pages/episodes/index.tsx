@@ -29,7 +29,7 @@ export function EpisodesPage() {
   const navigate = useNavigate();
 
   return (
-    <main className="flex w-full flex-1 justify-center">
+    <main className="flex w-full justify-center flex-1">
       <section className="flex flex-col gap-8 p-4 py-10 flex-1 justify-between items-center">
         {isLoading ? (
           <LoadingEpisodeList />
@@ -54,11 +54,19 @@ export function EpisodesPage() {
           </ul>
         )}
 
-        <Paginator
-          totalPages={data?.info?.pages || 1}
-          onPageChange={onPageChange}
-          page={page}
-        />
+        {data && data?.results?.length > 0 && (
+          <Paginator
+            totalPages={data?.info.pages || 1}
+            onPageChange={onPageChange}
+            page={page}
+          />
+        )}
+
+        {!isLoading && data?.results?.length === 0 && (
+          <p className="text-center text-lg font-semibold text-foreground">
+            No characters found
+          </p>
+        )}
       </section>
     </main>
   );

@@ -19,7 +19,7 @@ export function LocationPage() {
   const location = state || data;
 
   return (
-    <main className="flex xl:flex-row flex-col items-center justify-center w-full py-8 px-4 gap-8">
+    <main className="flex xl:flex-row flex-col justify-center w-full py-8 px-4 gap-8 flex-1 xl:pt-20">
       <button
         className="flex self-start items-center gap-4 py-4 px-10 rounded-lg border-2 border-muted shadow-sm cursor-pointer transition duration-300 animate-fade font-medium group hover:border-teal-400 xl:my-16"
         onClick={() => navigate(-1)}
@@ -33,11 +33,11 @@ export function LocationPage() {
       {isLoading ? (
         <LoadingLocation />
       ) : (
-        <section className="flex flex-col gap-8">
-          <h1 className="text-3xl font-bold text-zinc-950 uppercase">
+        <section className="flex flex-col gap-8 max-w-5xl w-full">
+          <h1 className="text-3xl font-bold text-foreground uppercase">
             {location?.name}
           </h1>
-          <div className="flex flex-col items-center justify-center gap-2 p-4 rounded border-2 border-muted shadow-sm animate-fade-in">
+          <div className="flex flex-col lg:items-center justify-center gap-2 p-4 rounded border-2 border-muted shadow-sm animate-fade-in">
             <div className="flex flex-col gap-2">
               <fieldset className="flex items-center gap-2">
                 <label

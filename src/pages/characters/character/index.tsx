@@ -4,6 +4,7 @@ import { TbArrowBack, TbLocation } from "react-icons/tb";
 import { useQuery } from "@tanstack/react-query";
 import { getCharacterById } from "@/services/requests/queries/get-character-by-id";
 import { LoadingCharacter } from "./components/loading";
+import { Dot } from "@/components/ui/dot";
 
 export function CharacterPage() {
   const { state }: { state: CharacterProps } = useLocation();
@@ -19,9 +20,9 @@ export function CharacterPage() {
   const character = state || data;
 
   return (
-    <main className="flex xl:flex-row flex-col items-center justify-center w-full py-8 px-4 gap-8">
+    <main className="flex xl:flex-row flex-col justify-center w-full py-8 px-4 gap-8 flex-1">
       <button
-        className="flex self-start items-center gap-4 py-4 px-10 rounded-lg border-2 border-muted shadow-sm cursor-pointer transition duration-300 animate-fade font-medium group hover:border-teal-400 xl:my-16"
+        className="flex self-start items-center gap-4 py-4 px-10 rounded-lg border-2 border-muted shadow-sm cursor-pointer transition duration-300 animate-fade font-medium group hover:border-teal-400"
         onClick={() => navigate(-1)}
       >
         <TbArrowBack
@@ -34,11 +35,11 @@ export function CharacterPage() {
         <LoadingCharacter />
       ) : (
         <section className="flex flex-col gap-8">
-          <h1 className="text-3xl font-bold text-zinc-950 uppercase">
+          <h1 className="text-3xl font-bold text-foreground uppercase">
             {character?.name}
           </h1>
           <div className="flex flex-col items-center justify-center gap-2 p-4 rounded border-2 border-muted shadow-sm animate-fade-in">
-            <div className="flex lg:flex-row flex-col gap-4 w-full items-center">
+            <div className="flex lg:flex-row flex-col gap-4 w-full lg:items-center">
               <img
                 src={character?.image}
                 alt={character?.name}
@@ -98,8 +99,17 @@ export function CharacterPage() {
                   </label>
                   <p
                     id="status"
-                    className="font-semibold text-lg"
+                    className="font-semibold text-lg flex items-center gap-2"
                   >
+                    <Dot
+                      className={
+                        character?.status === "Alive"
+                          ? "bg-green-500"
+                          : character?.status === "Dead"
+                            ? "bg-red-500"
+                            : "bg-yellow-500"
+                      }
+                    />
                     {character?.status}
                   </p>
                 </fieldset>
@@ -156,8 +166,8 @@ export function CharacterPage() {
               </div>
             </div>
 
-            <h3 className="text-lg font-bold">Episodes</h3>
-            <ul className="xl:grid grid-cols-10 gap-4 flex flex-wrap justify-center">
+            <h3 className="text-lg font-bold">Appears in</h3>
+            <ul className="grid lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-4 md:grid-cols-3 justify-center">
               {character?.episode.map((episode) => (
                 <Link
                   to={`/episodes/${episode.replace(
@@ -165,8 +175,9 @@ export function CharacterPage() {
                     "",
                   )}`}
                   key={episode}
-                  className="min-w-28 py-4 text-center px-10 rounded-lg bg-teal-400 text-muted hover:scale-105 transition duration-300 cursor-pointer"
+                  className="w-full py-4 px-10 rounded-lg bg-teal-400 text-muted hover:scale-105 transition duration-300 cursor-pointer text-semibold font-sora whitespace-nowrap text-center"
                 >
+                  Episode{" "}
                   {episode.replace(
                     "https://rickandmortyapi.com/api/episode/",
                     "",
