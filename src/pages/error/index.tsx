@@ -18,10 +18,14 @@ export function ErrorPage() {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
- 
+
   return (
     <main className="w-full flex flex-col gap-4 items-center">
-      <Header />
+      <Header
+        isDarkMode={false}
+        toggleTheme={() => {}}
+        isNotFoundPage
+      />
       <section className="flex flex-col lg:flex-row gap-4 items-center lg:items-end lg:py-20 w-full max-w-5xl p-4">
         <Lottie
           options={defaultOptions}

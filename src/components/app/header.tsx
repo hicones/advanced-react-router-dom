@@ -27,9 +27,11 @@ const headerOptions = [
 export const Header = ({
   isDarkMode,
   toggleTheme,
+  isNotFoundPage,
 }: {
   isDarkMode: boolean | string;
   toggleTheme: () => void;
+  isNotFoundPage?: boolean;
 }) => {
   const pathname = useLocation().pathname;
 
@@ -51,18 +53,21 @@ export const Header = ({
             {option.name}
           </Link>
         ))}
-        {!isDarkMode ? (
+        {!isDarkMode && !isNotFoundPage ? (
           <TbMoon
             size={24}
             className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300"
             onClick={() => toggleTheme()}
           />
         ) : (
-          <TbSun
-            size={24}
-            className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300"
-            onClick={() => toggleTheme()}
-          />
+          isDarkMode &&
+          !isNotFoundPage && (
+            <TbSun
+              size={24}
+              className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300"
+              onClick={() => toggleTheme()}
+            />
+          )
         )}
       </nav>
       <MobileMenu
