@@ -1,12 +1,22 @@
 import { CharacterProps } from "@/types/characters";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { TbArrowBack, TbLocation } from "react-icons/tb";
-import { FaLocationArrow } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import { getCharacterById } from "@/services/requests/queries/get-character-by-id";
+import { LoadingCharacter } from "./components/loading";
 
 export function CharacterPage() {
   const { state }: { state: CharacterProps } = useLocation();
-
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["episodes", id || "1"],
+    queryFn: getCharacterById,
+    enabled: !state,
+  });
+
+  const character = state || data;
 
   return (
     <main className="flex xl:flex-row flex-col items-center justify-center w-full py-8 px-4 gap-8">
@@ -20,149 +30,156 @@ export function CharacterPage() {
         />
         Back
       </button>
-      <section className="flex flex-col gap-8">
-        <h1 className="text-3xl font-bold text-zinc-950 uppercase">
-          {state?.name}
-        </h1>
-        <div className="flex flex-col items-center justify-center gap-2 p-4 rounded border-2 border-muted shadow-sm animate-fade-in">
-          <div className="flex lg:flex-row flex-col gap-4 w-full items-center">
-            <img
-              src={state?.image}
-              alt={state?.name}
-              className="rounded max-w-sm"
-            />
-            <div className="flex flex-col gap-2">
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="name"
-                  className="text-muted-foreground"
-                >
-                  Name:
-                </label>
-                <h2
-                  id="name"
-                  className="font-semibold text-lg"
-                >
-                  {state?.name}
-                </h2>
-              </fieldset>
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="species"
-                  className="text-muted-foreground"
-                >
-                  Species:
-                </label>
-                <p
-                  id="species"
-                  className="font-semibold text-lg"
-                >
-                  {state?.species}
-                </p>
-              </fieldset>
+      {isLoading ? (
+        <LoadingCharacter />
+      ) : (
+        <section className="flex flex-col gap-8">
+          <h1 className="text-3xl font-bold text-zinc-950 uppercase">
+            {character?.name}
+          </h1>
+          <div className="flex flex-col items-center justify-center gap-2 p-4 rounded border-2 border-muted shadow-sm animate-fade-in">
+            <div className="flex lg:flex-row flex-col gap-4 w-full items-center">
+              <img
+                src={character?.image}
+                alt={character?.name}
+                className="rounded max-w-sm"
+              />
+              <div className="flex flex-col gap-2">
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="name"
+                    className="text-muted-foreground"
+                  >
+                    Name:
+                  </label>
+                  <h2
+                    id="name"
+                    className="font-semibold text-lg"
+                  >
+                    {character?.name}
+                  </h2>
+                </fieldset>
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="species"
+                    className="text-muted-foreground"
+                  >
+                    Species:
+                  </label>
+                  <p
+                    id="species"
+                    className="font-semibold text-lg"
+                  >
+                    {character?.species}
+                  </p>
+                </fieldset>
 
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="location"
-                  className="text-muted-foreground"
-                >
-                  Gender:
-                </label>
-                <p
-                  id="location"
-                  className="font-semibold text-lg"
-                >
-                  {state?.gender}
-                </p>
-              </fieldset>
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="location"
+                    className="text-muted-foreground"
+                  >
+                    Gender:
+                  </label>
+                  <p
+                    id="location"
+                    className="font-semibold text-lg"
+                  >
+                    {character?.gender}
+                  </p>
+                </fieldset>
 
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="status"
-                  className="text-muted-foreground"
-                >
-                  Status:
-                </label>
-                <p
-                  id="status"
-                  className="font-semibold text-lg"
-                >
-                  {state?.status}
-                </p>
-              </fieldset>
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="status"
+                    className="text-muted-foreground"
+                  >
+                    Status:
+                  </label>
+                  <p
+                    id="status"
+                    className="font-semibold text-lg"
+                  >
+                    {character?.status}
+                  </p>
+                </fieldset>
 
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="location"
-                  className="text-muted-foreground"
-                >
-                  Type:
-                </label>
-                <p
-                  id="location"
-                  className="font-semibold text-lg"
-                >
-                  {state?.type}
-                </p>
-              </fieldset>
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="location"
+                    className="text-muted-foreground"
+                  >
+                    Type:
+                  </label>
+                  <p
+                    id="location"
+                    className="font-semibold text-lg"
+                  >
+                    {character?.type}
+                  </p>
+                </fieldset>
 
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="location"
-                  className="text-muted-foreground"
-                >
-                  Location:
-                </label>
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="location"
+                    className="text-muted-foreground"
+                  >
+                    Location:
+                  </label>
+                  <Link
+                    to={`/locations/${character?.location.url.replace(
+                      "https://rickandmortyapi.com/api/location/",
+                      "",
+                    )}`}
+                    id="location"
+                    className="font-semibold text-lg hover:text-teal-400 transition flex items-center gap-2"
+                  >
+                    {character?.location.name}
+                    <TbLocation />
+                  </Link>
+                </fieldset>
+
+                <fieldset className="flex items-center gap-2">
+                  <label
+                    htmlFor="origin"
+                    className="text-muted-foreground"
+                  >
+                    Origin:
+                  </label>
+                  <p
+                    id="origin"
+                    className="font-semibold text-lg"
+                  >
+                    {character?.origin.name}
+                  </p>
+                </fieldset>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-bold">Episodes</h3>
+            <ul className="xl:grid grid-cols-10 gap-4 flex flex-wrap justify-center">
+              {character?.episode.map((episode) => (
                 <Link
-                  to={`/locations/${state?.location.url.replace(
-                    "https://rickandmortyapi.com/api/location/",
+                  to={`/episodes/${episode.replace(
+                    "https://rickandmortyapi.com/api/episode/",
                     "",
                   )}`}
-                  id="location"
-                  className="font-semibold text-lg hover:text-teal-400 transition flex items-center gap-2"
+                  key={episode}
+                  className="min-w-28 py-4 text-center px-10 rounded-lg bg-teal-400 text-muted hover:scale-105 transition duration-300 cursor-pointer"
                 >
-                  {state?.location.name}
-                  <TbLocation />
+                  {episode.replace(
+                    "https://rickandmortyapi.com/api/episode/",
+                    "",
+                  )}
                 </Link>
-              </fieldset>
-
-              <fieldset className="flex items-center gap-2">
-                <label
-                  htmlFor="origin"
-                  className="text-muted-foreground"
-                >
-                  Origin:
-                </label>
-                <p
-                  id="origin"
-                  className="font-semibold text-lg"
-                >
-                  {state?.origin.name}
-                </p>
-              </fieldset>
-            </div>
+              ))}
+              {character?.episode?.length === 0 && (
+                <p className="text-muted-foreground">No episodes found</p>
+              )}
+            </ul>
           </div>
-
-          <h3 className="text-lg font-bold">Episodes</h3>
-          <ul className="xl:grid grid-cols-10 gap-4 flex flex-wrap justify-center">
-            {state?.episode.map((episode) => (
-              <Link
-                to={`/episodes/${episode.replace(
-                  "https://rickandmortyapi.com/api/episode/",
-                  "",
-                )}`}
-                key={episode}
-                className="min-w-28 py-4 text-center px-10 rounded-lg bg-teal-400 text-muted hover:scale-105 transition duration-300 cursor-pointer"
-              >
-                {episode.replace(
-                  "https://rickandmortyapi.com/api/episode/",
-                  "",
-                )}
-              </Link>
-            ))}
-          </ul>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 }
