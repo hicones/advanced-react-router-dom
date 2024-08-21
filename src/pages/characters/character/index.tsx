@@ -20,7 +20,7 @@ export function CharacterPage() {
   const character = state || data;
 
   return (
-    <main className="flex xl:flex-row flex-col justify-center w-full py-8 px-4 gap-8 flex-1">
+    <main className="flex xl:flex-row flex-col justify-center w-full lg:py-8 p-4 gap-8 flex-1">
       <button
         className="flex self-start items-center gap-4 py-4 px-10 rounded-lg border-2 border-muted shadow-sm cursor-pointer transition duration-300 animate-fade font-medium group hover:border-teal-400"
         onClick={() => navigate(-1)}
