@@ -24,17 +24,14 @@ const headerOptions = [
   },
 ];
 
-export const Header = () => {
+export const Header = ({
+  isDarkMode,
+  toggleTheme,
+}: {
+  isDarkMode: boolean | string;
+  toggleTheme: () => void;
+}) => {
   const pathname = useLocation().pathname;
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDarkMode]);
 
   return (
     <header className="flex items-center justify-between w-full px-8 py-6 text-foreground shadow border-b border-muted xl:relative sticky top-0 bg-background z-[999] transition duration-300">
@@ -58,20 +55,20 @@ export const Header = () => {
           <TbMoon
             size={24}
             className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300"
-            onClick={() => setIsDarkMode(!isDarkMode)}
+            onClick={() => toggleTheme()}
           />
         ) : (
           <TbSun
             size={24}
             className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300"
-            onClick={() => setIsDarkMode(!isDarkMode)}
+            onClick={() => toggleTheme()}
           />
         )}
       </nav>
       <MobileMenu
         pathname={pathname}
         isDarkMode={isDarkMode}
-        setIsDarkMode={setIsDarkMode}
+        toggleTheme={toggleTheme}
       />
     </header>
   );
@@ -80,11 +77,11 @@ export const Header = () => {
 const MobileMenu = ({
   pathname,
   isDarkMode,
-  setIsDarkMode,
+  toggleTheme,
 }: {
   pathname: string;
-  isDarkMode: boolean;
-  setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  isDarkMode: boolean | string;
+  toggleTheme: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -140,13 +137,13 @@ const MobileMenu = ({
             <TbMoon
               size={24}
               className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300 animate-fade-in"
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={() => toggleTheme()}
             />
           ) : (
             <TbSun
               size={24}
               className="text-foreground cursor-pointer hover:opacity-95 hover:text-teal-500 transition duration-300 animate-fade-in"
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={() => toggleTheme()}
             />
           )}
         </div>
