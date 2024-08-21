@@ -50,7 +50,7 @@ export function HomePage() {
               <FaGithub size={32} />
             </a>
             <a
-              href="hhttps://rickandmortyapi.com"
+              href="https://rickandmortyapi.com"
               target="_blank"
               className="hover:scale-105 transition duration-300 hover:text-teal-500"
               rel="noopener noreferrer"
