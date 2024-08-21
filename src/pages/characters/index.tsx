@@ -2,6 +2,7 @@ import { Paginator } from "@/components/app";
 import { getCharacters } from "@/services/requests/queries/get-characters";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { LoadingCharactersList } from "./components/loading";
 
 export function CharactersPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +11,6 @@ export function CharactersPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["characters", page.toString()],
     queryFn: getCharacters,
-    staleTime: Infinity,
   });
 
   const onPageChange = (page: number) => {
@@ -29,19 +29,9 @@ export function CharactersPage() {
 
   return (
     <main className="flex items-center justify-center w-full">
-      <section className="flex flex-col gap-8 p-4 pt-10">
-        {/*   <h1 className="text-3xl font-bold text-zinc-950 uppercase">
-          Characters
-        </h1> */}
+      <section className="flex flex-col gap-8 p-4 pt-10 w-full">
         {isLoading ? (
-          <ul className="grid grid-cols-4 gap-4 w-full">
-            {Array.from({ length: 20 }).map((_, index) => (
-              <div
-                key={index}
-                className="w-72 h-64 rounded-lg bg-muted animate-pulse blur-sm"
-              />
-            ))}
-          </ul>
+          <LoadingCharactersList />
         ) : (
           <ul className="grid 2xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {data?.results.map((character) => (
@@ -59,8 +49,8 @@ export function CharactersPage() {
                   alt={character.name}
                   className="rounded"
                 />
-                <h2>{character.name}</h2>
-                <p>{character.species}</p>
+                <h2 className="font-semibold text-lg">{character.name}</h2>
+                <p className="text-muted-foreground">{character.species}</p>
               </li>
             ))}
           </ul>
