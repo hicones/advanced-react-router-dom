@@ -6,6 +6,10 @@ import { HomePage } from "./home";
 import { AppLayout } from "@/layouts";
 import { CharacterPage } from "./characters/character";
 import { CharactersPage } from "./characters";
+import { EpisodesPage } from "./episodes";
+import { EpisodePage } from "./episodes/episode";
+import { LocationsPage } from "./locations";
+import { LocationPage } from "./locations/location";
 
 const router = createBrowserRouter(
   [
@@ -38,12 +42,12 @@ const router = createBrowserRouter(
           path: "/episodes",
           children: [
             {
-              element: <div>Episodes</div>,
+              element: <EpisodesPage />,
               index: true,
             },
             {
               path: ":id",
-              element: <div>Episode id</div>,
+              element: <EpisodePage />,
             },
           ],
         },
@@ -51,11 +55,11 @@ const router = createBrowserRouter(
           path: "/locations",
           children: [
             {
-              element: <div>Locations</div>,
+              element: <LocationsPage />,
               index: true,
             },
             {
-              element: <div>Location id</div>,
+              element: <LocationPage />,
               path: ":id",
             },
           ],

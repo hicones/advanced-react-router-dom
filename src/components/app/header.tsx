@@ -32,7 +32,7 @@ export const Header = () => {
       <h1 className="xl:text-2xl text-base font-bold">
         Advanced react-router-dom
       </h1>
-      <nav className="hidden gap-4 lg:flex">
+      <nav className="hidden gap-4 xl:flex">
         {headerOptions.map((option) => (
           <Link
             key={option.name}
@@ -77,7 +77,7 @@ const MobileMenu = ({ pathname }: { pathname: string }) => {
         className={cn(
           "transition duration-300",
           isOpen
-            ? "flex flex-col gap-4 absolute top-16 left-0 w-full bg-white p-4 shadow-lg h-auto"
+            ? "flex flex-col gap-4 absolute top-16 left-0 w-full bg-white p-4 shadow-lg h-auto z-[999]"
             : "h-0 overflow-hidden",
         )}
       >

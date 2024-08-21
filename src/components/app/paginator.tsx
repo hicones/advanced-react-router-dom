@@ -1,8 +1,6 @@
-import { useSearchParams } from "react-router-dom";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -34,7 +32,7 @@ export const Paginator = ({
           if (
             pageNumber === 1 ||
             pageNumber === totalPages ||
-            Math.abs(pageNumber - page) <= 2
+            Math.abs(pageNumber - page) <= 1
           ) {
             return (
               <PaginationItem key={index}>
@@ -46,10 +44,6 @@ export const Paginator = ({
                 </PaginationLink>
               </PaginationItem>
             );
-          }
-
-          if (Math.abs(pageNumber - page) === 3) {
-            return <PaginationEllipsis key={index} />;
           }
 
           return null;
