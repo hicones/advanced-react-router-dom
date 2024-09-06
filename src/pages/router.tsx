@@ -23,7 +23,6 @@ const router = createBrowserRouter(
         {
           element: <HomePage />,
           index: true,
-          hydrateFallbackElement: <div>Loading...</div>,
           path: "/",
         },
         {
