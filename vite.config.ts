@@ -15,7 +15,7 @@ export default defineConfig({
   },
   build: {
     outDir: "dist",
-    assetsDir: "datora360-assets",
+    assetsDir: "assets",
   },
   resolve: {
     alias: {
